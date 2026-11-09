@@ -1,0 +1,18 @@
+[project]
+name = "pyjogja-10-tahun"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipython>=9.18.1",
+    "pydantic>=2.14.3",
+    "scrapy>=2.20.0",
+    "web-poet>=0.25.0",
+]
+
+[dependency-groups]
+dev = [
+    "instructor[openai]>=1.17.0",
+    "pytest>=7",
+]

@@ -1,0 +1,24 @@
+--- a/diy_scraper/pages.py
++++ b/diy_scraper/pages.py
+@@ -64,14 +64,19 @@
+         href = website.css("a::attr(href)").get() if website is not None else None
+         map_text = "\n".join(self._section("Peta").xpath(".//div//text()").getall())
+ 
++        classifications = [
++            cell_text(cell) for label, cell in identity.items()
++            if label in {"Bentuk Pendidikan", "Jenjang Pendidikan"}
++        ]
++
+         return {
+             "npsn": value(identity, "NPSN"),
+             "nama_satuan_pendidikan": value(identity, "Nama"),
+             "alamat": value(identity, "Alamat"),
+             "kelurahan": value(identity, "Desa/Kelurahan"),
+             "status": school_status(value(identity, "Status Sekolah")),
+-            "bentuk_pendidikan": value(identity, "Bentuk Pendidikan"),
+-            "jenjang_pendidikan": value(identity, "Jenjang Pendidikan"),
++            "bentuk_pendidikan": classifications[0],
++            "jenjang_pendidikan": classifications[1],
+             "kementerian_pembina": value(permits, "Kementerian Pembina"),
+             "website": clean(href) or value(contact, "Website"),
+             "operator": value(contact, "Operator"),
